@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Triptastic Tourism | Luxury Travel in Dubai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black:     #05080f;
+    --navy:      #0b1325;
+    --navy-mid:  #111e38;
+    --gold:      #c9a84c;
+    --gold-lt:   #e8c96d;
+    --gold-dk:   #9a7a2e;
+    --white:     #ffffff;
+    --off-white: #f0ede6;
+    --gray:      #8a8f9e;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'Inter', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 3px; }
+
+  /* ─── UTILITIES ─── */
+  .gold { color: var(--gold); }
+  .serif { font-family: var(--serif); }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1.2rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(5,8,15,0.92);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 1px 0 rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--white); font-weight: 300; }
+  .nav-links {
+    display: flex; gap: 2.2rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; color: rgba(255,255,255,0.75);
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 100%;
+    height: 1px; background: var(--gold);
+    transition: right 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { right: 0; }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.6rem 1.6rem;
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 500; font-family: var(--sans);
+    cursor: pointer; text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(5,8,15,0.88) 0%, rgba(11,19,37,0.78) 50%, rgba(5,8,15,0.92) 100%),
+      url('https://triptasticdubai.com/wp-content/uploads/2024/08/triptasticdubai-slide-6.jpg') center/cover no-repeat;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%);
+  }
+  .hero-particles {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-particle var(--dur, 8s) var(--delay, 0s) infinite ease-in-out;
+  }
+  @keyframes float-particle {
+    0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(-20px) translateX(var(--drift, 40px)); opacity: 0; }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 10% 0 8%;
+    max-width: 900px;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    color: var(--gold); font-size: 0.72rem;
+    letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 1.6rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fade-up 0.8s 0.3s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fade-up 0.9s 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold);
+    font-weight: 300;
+  }
+  .hero-subtitle {
+    font-size: 1rem; line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin-bottom: 2.8rem;
+    font-weight: 300;
+    opacity: 0; transform: translateY(20px);
+    animation: fade-up 0.8s 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; align-items: center;
+    opacity: 0; transform: translateY(20px);
+    animation: fade-up 0.8s 0.9s forwards;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.9rem 2.4rem;
+    font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; font-family: var(--sans);
+    border: none; cursor: pointer; text-decoration: none;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+  }
+  .btn-primary:hover::before { transform: translateX(100%); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.35); }
+  .btn-ghost {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: color 0.3s;
+    font-family: var(--sans);
+    background: none; border: none; cursor: pointer;
+  }
+  .btn-ghost svg { transition: transform 0.3s; }
+  .btn-ghost:hover { color: var(--gold); }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    z-index: 2;
+    opacity: 0; animation: fade-up 0.8s 1.3s forwards;
+  }
+  .hero-scroll span {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scroll-pulse 1.8s infinite;
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50%       { transform: scaleY(0.5); opacity: 0.4; }
+  }
+
+  /* ─── TICKER ─── */
+  .ticker {
+    background: var(--gold);
+    padding: 0.75rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-flex; gap: 0;
+    animation: ticker-scroll 30s linear infinite;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  .ticker-item {
+    display: inline-flex; align-items: center; gap: 1.5rem;
+    padding: 0 2rem;
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 600; color: var(--black);
+    flex-shrink: 0;
+  }
+  .ticker-dot {
+    width: 4px; height: 4px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── STATS ─── */
+  .stats {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.12);
+  }
+  .stat-item {
+    background: var(--navy);
+    padding: 3rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .stat-item.visible { opacity: 1; transform: translateY(0); }
+  .stat-item::before {
+    content: '';
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.6s 0.3s;
+  }
+  .stat-item.visible::before { width: 50%; }
+  .stat-icon {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+  .stat-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 3.2rem; font-weight: 300;
+    color: var(--gold); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+  .stat-desc {
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+    line-height: 1.5; font-weight: 300; font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500;
+    margin-bottom: 1rem;
+    opacity: 0; transform: translateY(15px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .section-tag.visible { opacity: 1; transform: translateY(0); }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; line-height: 1.2;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s 0.1s, transform 0.7s 0.1s;
+  }
+  .section-title.visible { opacity: 1; transform: translateY(0); }
+  .section-line {
+    width: 50px; height: 1px;
+    background: var(--gold);
+    margin: 1.4rem auto 0;
+    opacity: 0; transform: scaleX(0);
+    transition: opacity 0.6s 0.3s, transform 0.6s 0.3s;
+    transform-origin: center;
+  }
+  .section-line.visible { opacity: 1; transform: scaleX(1); }
+
+  /* ─── SERVICES ─── */
+  .services {
+    padding: 7rem 8%;
+    background: var(--black);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(201,168,76,0.08);
+  }
+  .service-card {
+    background: var(--navy);
+    padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+    transition: background 0.4s;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s, background 0.4s;
+  }
+  .service-card.visible { opacity: 1; transform: translateY(0); }
+  .service-card:nth-child(2) { transition-delay: 0.1s; }
+  .service-card:nth-child(3) { transition-delay: 0.2s; }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:hover { background: #10192e; }
+  .service-icon {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 2rem;
+    transition: border-color 0.4s, background 0.4s;
+  }
+  .service-card:hover .service-icon {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+  .service-icon svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .service-num {
+    position: absolute; top: 2rem; right: 2rem;
+    font-family: var(--serif); font-size: 4rem;
+    color: rgba(201,168,76,0.06);
+    font-weight: 600; line-height: 1;
+    transition: color 0.4s;
+  }
+  .service-card:hover .service-num { color: rgba(201,168,76,0.12); }
+  .service-title {
+    font-family: var(--serif); font-size: 1.5rem;
+    font-weight: 400; margin-bottom: 0.9rem;
+    line-height: 1.3;
+  }
+  .service-desc {
+    font-size: 0.88rem; line-height: 1.7;
+    color: rgba(255,255,255,0.55); font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .service-link:hover { gap: 0.8rem; }
+  .service-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* ─── TOURS ─── */
+  .tours {
+    padding: 7rem 8%;
+    background: var(--navy);
+  }
+  .tours-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .tour-card {
+    position: relative; overflow: hidden;
+    cursor: pointer;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .tour-card.visible { opacity: 1; transform: translateY(0); }
+  .tour-card:nth-child(2) { transition-delay: 0.12s; }
+  .tour-card:nth-child(3) { transition-delay: 0.24s; }
+  .tour-img {
+    height: 380px;
+    position: relative; overflow: hidden;
+  }
+  .tour-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .tour-card:hover .tour-img img { transform: scale(1.07); }
+  .tour-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,8,15,0.9) 0%, rgba(5,8,15,0.2) 60%, transparent 100%);
+  }
+  .tour-badge {
+    position: absolute; top: 1.2rem; left: 1.2rem;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 700; padding: 0.35rem 0.8rem;
+  }
+  .tour-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.8rem;
+  }
+  .tour-duration {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 0.5rem;
+  }
+  .tour-name {
+    font-family: var(--serif); font-size: 1.6rem;
+    font-weight: 300; line-height: 1.2; margin-bottom: 0.5rem;
+  }
+  .tour-meta {
+    font-size: 0.8rem; color: rgba(255,255,255,0.55);
+    display: flex; gap: 1rem; align-items: center;
+  }
+  .tour-hover-btn {
+    position: absolute; bottom: 1.8rem; right: 1.8rem;
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,168,76,0.5);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s, transform 0.4s, background 0.3s, border-color 0.3s;
+  }
+  .tour-card:hover .tour-hover-btn {
+    opacity: 1; transform: translateY(0);
+  }
+  .tour-hover-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .tour-hover-btn svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 2; }
+  .tour-hover-btn:hover svg { stroke: var(--black); }
+
+  /* ─── FLEET ─── */
+  .fleet {
+    padding: 7rem 8%;
+    background: var(--black);
+  }
+  .fleet-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: end;
+    margin-bottom: 4rem;
+  }
+  .fleet-intro-text p {
+    font-size: 0.95rem; line-height: 1.8;
+    color: rgba(255,255,255,0.55); font-weight: 300;
+    margin-top: 1.5rem;
+  }
+  .fleet-intro-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .fleet-stat {
+    padding: 1.5rem;
+    border: 1px solid rgba(201,168,76,0.12);
+    position: relative;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s, border-color 0.4s;
+  }
+  .fleet-stat.visible { opacity: 1; transform: translateY(0); }
+  .fleet-stat:hover { border-color: rgba(201,168,76,0.35); }
+  .fleet-stat-n {
+    font-family: var(--serif); font-size: 2.2rem;
+    color: var(--gold); line-height: 1;
+  }
+  .fleet-stat-l {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-top: 0.3rem;
+  }
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.08);
+  }
+  .car-card {
+    background: var(--navy-mid);
+    padding: 2rem 1.5rem;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.4s;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.5s, transform 0.5s, background 0.4s;
+  }
+  .car-card.visible { opacity: 1; transform: translateY(0); }
+  .car-card:nth-child(1) { transition-delay: 0s; }
+  .car-card:nth-child(2) { transition-delay: 0.07s; }
+  .car-card:nth-child(3) { transition-delay: 0.14s; }
+  .car-card:nth-child(4) { transition-delay: 0.21s; }
+  .car-card:hover { background: #141f38; }
+  .car-icon {
+    width: 100%; height: 160px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .car-icon img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .car-card:hover .car-icon img { transform: scale(1.05); }
+  .car-brand {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 0.4rem;
+  }
+  .car-model {
+    font-family: var(--serif); font-size: 1.25rem;
+    font-weight: 400; margin-bottom: 0.8rem;
+  }
+  .car-spec {
+    font-size: 0.78rem; color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+  .car-tag {
+    position: absolute; top: 0; right: 0;
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    background: var(--gold);
+    color: var(--black); padding: 0.35rem 0.9rem;
+    font-weight: 700; z-index: 2;
+  }
+
+  /* ─── WHY US ─── */
+  .why {
+    padding: 7rem 8%;
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  .why::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.05), transparent 70%);
+    pointer-events: none;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    margin-top: 4rem;
+  }
+  .why-item {
+    position: relative;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .why-item.visible { opacity: 1; transform: translateY(0); }
+  .why-item:nth-child(2) { transition-delay: 0.1s; }
+  .why-item:nth-child(3) { transition-delay: 0.2s; }
+  .why-item:nth-child(4) { transition-delay: 0.3s; }
+  .why-icon {
+    width: 48px; height: 48px;
+    border-bottom: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .why-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .why-title {
+    font-family: var(--serif); font-size: 1.2rem;
+    font-weight: 400; margin-bottom: 0.7rem;
+  }
+  .why-text {
+    font-size: 0.85rem; line-height: 1.7;
+    color: rgba(255,255,255,0.5); font-weight: 300;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials {
+    padding: 7rem 8%;
+    background: var(--black);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(201,168,76,0.08);
+    margin-top: 4rem;
+  }
+  .testimonial-card {
+    background: var(--navy);
+    padding: 2.5rem;
+    opacity: 0; transform: translateY(25px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .testimonial-card.visible { opacity: 1; transform: translateY(0); }
+  .testimonial-card:nth-child(2) { transition-delay: 0.1s; }
+  .testimonial-card:nth-child(3) { transition-delay: 0.2s; }
+  .testimonial-stars {
+    display: flex; gap: 3px; margin-bottom: 1.5rem;
+  }
+  .star { color: var(--gold); font-size: 0.85rem; }
+  .testimonial-text {
+    font-family: var(--serif); font-size: 1.05rem;
+    font-style: italic; line-height: 1.7; font-weight: 300;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .author-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 0.85rem; color: var(--black);
+    flex-shrink: 0;
+    font-family: var(--sans);
+  }
+  .author-name {
+    font-size: 0.88rem; font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .author-origin {
+    font-size: 0.72rem; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    padding: 7rem 8%;
+    background: var(--navy-mid);
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cta-content {
+    opacity: 0; transform: translateX(-30px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+  .cta-content.visible { opacity: 1; transform: translateX(0); }
+  .cta-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .cta-sub {
+    font-size: 0.9rem; line-height: 1.7;
+    color: rgba(255,255,255,0.55); font-weight: 300;
+    max-width: 400px;
+  }
+  .cta-actions {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-wa {
+    background: #25D366;
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; font-family: var(--sans);
+    border: none; cursor: pointer; text-decoration: none;
+    display: flex; align-items: center; gap: 0.6rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+  .btn-wa svg { width: 18px; height: 18px; fill: white; }
+  .cta-phone {
+    opacity: 0; transform: translateX(30px);
+    transition: opacity 0.8s 0.2s, transform 0.8s 0.2s;
+  }
+  .cta-phone.visible { opacity: 1; transform: translateX(0); }
+  .phone-card {
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .phone-label {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .phone-number {
+    font-family: var(--serif); font-size: 2.2rem;
+    font-weight: 300; color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .phone-sub {
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+  }
+  .phone-badge {
+    position: absolute; top: -12px; right: 2rem;
+    background: var(--gold); color: var(--black);
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; padding: 0.3rem 0.8rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #030508;
+    padding: 4rem 8% 2rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand-name {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .footer-brand-sub {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 1.2rem;
+  }
+  .footer-desc {
+    font-size: 0.85rem; line-height: 1.7;
+    color: rgba(255,255,255,0.4); font-weight: 300;
+    max-width: 260px;
+  }
+  .footer-social {
+    display: flex; gap: 0.8rem; margin-top: 1.8rem;
+  }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: rgba(255,255,255,0.5);
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+  }
+  .social-btn:hover {
+    border-color: var(--gold); color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .social-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .footer-col-title {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links a {
+    text-decoration: none;
+    font-size: 0.85rem; color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    transition: color 0.3s, padding-left 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); padding-left: 4px; }
+  .footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy {
+    font-size: 0.78rem; color: rgba(255,255,255,0.25);
+  }
+  .footer-copy span { color: var(--gold); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fade-up {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MOBILE NAV TOGGLE ─── */
+  .nav-toggle {
+    display: none;
+    flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 1.5px;
+    background: var(--white); transition: all 0.3s;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: 1fr; }
+    .tours-grid { grid-template-columns: 1fr; }
+    .cars-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .cta-section { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .fleet-intro { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 5%; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+    .hero-content { padding: 0 5%; }
+    .stats { grid-template-columns: repeat(2, 1fr); padding: 3rem 5%; }
+    .services, .tours, .fleet, .why, .testimonials, .cta-section { padding: 5rem 5%; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cars-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="https://triptasticdubai.com/wp-content/uploads/2022/12/royal-triptastic-logo.png" alt="Royal Triptastic" style="height:42px; width:auto; object-fit:contain;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tours">Tours</a></li>
+    <li><a href="#fleet">Fleet</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:+971585337317" class="nav-cta">Book Now</a>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Dubai's Premier Luxury Travel</div>
+    <h1 class="hero-title">
+      Experience Dubai<br>in <em>Royal</em> Comfort
+    </h1>
+    <p class="hero-subtitle">
+      Chauffeur-driven luxury vehicles, bespoke desert safaris, and curated city tours — crafted for discerning travellers who expect nothing less than perfection.
+    </p>
+    <div class="hero-actions">
+      <a href="#tours" class="btn-primary">Explore Experiences</a>
+      <a href="tel:+971585337317" class="btn-ghost">
+        Speak to Us
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">Mercedes S-Class<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Desert Safari<span class="ticker-dot"></span></span>
+    <span class="ticker-item">BMW 7-Series<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Dubai City Tour<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mercedes Maybach<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Abu Dhabi Tour<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mercedes V-Class<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Airport Transfer<span class="ticker-dot"></span></span>
+    <span class="ticker-item">24/7 Service<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Luxury Limousines<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mercedes S-Class<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Desert Safari<span class="ticker-dot"></span></span>
+    <span class="ticker-item">BMW 7-Series<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Dubai City Tour<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mercedes Maybach<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Abu Dhabi Tour<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mercedes V-Class<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Airport Transfer<span class="ticker-dot"></span></span>
+    <span class="ticker-item">24/7 Service<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Luxury Limousines<span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats" id="about">
+  <div class="stat-item">
+    <div class="stat-icon">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div class="stat-number" data-target="500">0</div>
+    <div class="stat-label">Happy Clients</div>
+    <div class="stat-desc">Travellers who trust us every journey</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-icon">
+      <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    </div>
+    <div class="stat-number" data-target="50">0</div>
+    <div class="stat-label">Luxury Vehicles</div>
+    <div class="stat-desc">Premium fleet, fully maintained 24/7</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <div class="stat-number" data-target="10">0</div>
+    <div class="stat-label">Years Experience</div>
+    <div class="stat-desc">A decade of exceptional service in UAE</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-icon">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </div>
+    <div class="stat-number" data-target="24">0</div>
+    <div class="stat-label">Hours Available</div>
+    <div class="stat-desc">Always here — day, night, and holidays</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title serif">Tailored for Every Journey</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3 class="service-title serif">Curated City Tours</h3>
+      <p class="service-desc">Explore the wonders of Dubai and Abu Dhabi with our expert-guided tours. From the Burj Khalifa to ancient souks — every landmark, every story.</p>
+      <a href="#tours" class="service-link">Explore Tours <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12.01" y2="12"/></svg>
+      </div>
+      <h3 class="service-title serif">Luxury Chauffeur Service</h3>
+      <p class="service-desc">Arrive in style with our fleet of premium vehicles. Airport pickups, business transfers, and corporate travel — always punctual, always immaculate.</p>
+      <a href="#fleet" class="service-link">View Fleet <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3 class="service-title serif">Bespoke Experiences</h3>
+      <p class="service-desc">From desert safaris at golden hour to multi-day private tours, we design experiences around you. No two journeys are the same.</p>
+      <a href="#contact" class="service-link">Get a Quote <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- TOURS -->
+<section class="tours" id="tours">
+  <div class="section-header">
+    <div class="section-tag">Featured Experiences</div>
+    <h2 class="section-title serif">Handpicked <em>Journeys</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="tours-grid">
+    <div class="tour-card">
+      <div class="tour-img">
+        <img src="https://triptasticdubai.com/wp-content/uploads/2022/11/desert-safari-ride-1.jpg" alt="Desert Safari" loading="lazy">
+        <div class="tour-img-overlay"></div>
+        <div class="tour-badge">Most Popular</div>
+        <div class="tour-hover-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="tour-info">
+        <div class="tour-duration">6 – 7 Hours · Daily 3:00 PM</div>
+        <div class="tour-name serif">Desert Safari</div>
+        <div class="tour-meta">Dune Bashing · BBQ Dinner · Camel Ride</div>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-img">
+        <img src="https://triptasticdubai.com/wp-content/uploads/2023/01/dubai-city-tour-home.jpg" alt="Dubai City Tour" loading="lazy">
+        <div class="tour-img-overlay"></div>
+        <div class="tour-badge">City Highlights</div>
+        <div class="tour-hover-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="tour-info">
+        <div class="tour-duration">4 Hours · Daily 9:00 AM</div>
+        <div class="tour-name serif">Dubai City Tour</div>
+        <div class="tour-meta">Burj Khalifa · Creek · Old Dubai</div>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-img">
+        <img src="https://triptasticdubai.com/wp-content/uploads/2022/12/abu-dhabi-city-mosq.jpg" alt="Abu Dhabi Tour" loading="lazy">
+        <div class="tour-img-overlay"></div>
+        <div class="tour-badge">Day Trip</div>
+        <div class="tour-hover-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="tour-info">
+        <div class="tour-duration">10 Hours · Daily 8:00 AM</div>
+        <div class="tour-name serif">Abu Dhabi City Tour</div>
+        <div class="tour-meta">Sheikh Zayed Mosque · Corniche · Heritage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section class="fleet" id="fleet">
+  <div class="fleet-intro">
+    <div class="fleet-intro-text">
+      <div class="section-tag" style="text-align:left;">Our Fleet</div>
+      <h2 class="section-title serif" style="text-align:left;">The Finest Vehicles<br>in <em>Dubai</em></h2>
+      <p>Every vehicle in our fleet is meticulously maintained, fully insured, and available 24/7. We partner only with the world's most prestigious automotive brands to ensure your comfort is never compromised.</p>
+    </div>
+    <div class="fleet-intro-stats">
+      <div class="fleet-stat">
+        <div class="fleet-stat-n">50+</div>
+        <div class="fleet-stat-l">Premium Vehicles</div>
+      </div>
+      <div class="fleet-stat">
+        <div class="fleet-stat-n">100%</div>
+        <div class="fleet-stat-l">Fully Insured</div>
+      </div>
+      <div class="fleet-stat">
+        <div class="fleet-stat-n">24/7</div>
+        <div class="fleet-stat-l">Availability</div>
+      </div>
+      <div class="fleet-stat">
+        <div class="fleet-stat-n">5★</div>
+        <div class="fleet-stat-l">Rated Service</div>
+      </div>
+    </div>
+  </div>
+  <div class="cars-grid">
+    <div class="car-card">
+      <div class="car-tag">Flagship</div>
+      <div class="car-icon"><img src="https://triptasticdubai.com/wp-content/uploads/2022/12/Mercedes-S-Class-W223-featured-1.jpg" alt="Mercedes S-Class W223"></div>
+      <div class="car-brand">Mercedes-Benz</div>
+      <div class="car-model serif">S-Class W223</div>
+      <div class="car-spec">Up to 3 passengers · Premium leather · Wi-Fi</div>
+    </div>
+    <div class="car-card">
+      <div class="car-tag">Ultra Luxury</div>
+      <div class="car-icon"><img src="https://triptasticdubai.com/wp-content/uploads/2022/12/Mercedes-Benz-Maybach-S-class-W223.jpg" alt="Mercedes Maybach"></div>
+      <div class="car-brand">Mercedes-Benz</div>
+      <div class="car-model serif">Maybach S-Class</div>
+      <div class="car-spec">Up to 3 passengers · Chauffeur partition · Mini bar</div>
+    </div>
+    <div class="car-card">
+      <div class="car-tag">Group</div>
+      <div class="car-icon"><img src="https://triptasticdubai.com/wp-content/uploads/2022/12/benz-v-class.jpg" alt="Mercedes V-Class"></div>
+      <div class="car-brand">Mercedes-Benz</div>
+      <div class="car-model serif">V-Class VIP</div>
+      <div class="car-spec">Up to 7 passengers · Conference layout · Smart TV</div>
+    </div>
+    <div class="car-card">
+      <div class="car-tag">Executive</div>
+      <div class="car-icon"><img src="https://triptasticdubai.com/wp-content/uploads/2024/04/BMW-7-Series-New-Shape-featured-image.jpg" alt="BMW 7-Series"></div>
+      <div class="car-brand">BMW</div>
+      <div class="car-model serif">7-Series</div>
+      <div class="car-spec">Up to 3 passengers · Massage seats · Panoramic roof</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="section-header">
+    <div class="section-tag">Why Choose Us</div>
+    <h2 class="section-title serif">The Royal Triptastic<br><em>Difference</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+      </div>
+      <h3 class="why-title serif">Always On Time</h3>
+      <p class="why-text">We track flights and traffic in real-time so your chauffeur is always ready — no waiting, no stress, no excuses.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h3 class="why-title serif">Exceptional Hospitality</h3>
+      <p class="why-text">Our professional drivers are trained in the art of hospitality, ensuring every interaction feels warm, discreet, and world-class.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3 class="why-title serif">Safe & Secure</h3>
+      <p class="why-text">Fully insured vehicles, licensed drivers, and strict safety protocols. Your peace of mind is built into every booking.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3 class="why-title serif">24/7 Availability</h3>
+      <p class="why-text">Day or night, early flights or late arrivals — our team is available around the clock to handle every request with grace.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header">
+    <div class="section-tag">Client Stories</div>
+    <h2 class="section-title serif">Words from Our <em>Guests</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"The desert safari was the highlight of our Dubai holiday. Our driver was incredibly knowledgeable and the Mercedes was absolutely pristine. Worth every dirham."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">SM</div>
+        <div>
+          <div class="author-name">Sarah Mitchell</div>
+          <div class="author-origin">London, United Kingdom</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"We booked the V-Class for our corporate team and it was flawless. On time, immaculate, and the driver knew every shortcut in Dubai. Our clients were very impressed."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AK</div>
+        <div>
+          <div class="author-name">Ahmed Al-Khalidi</div>
+          <div class="author-origin">Riyadh, Saudi Arabia</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"The Abu Dhabi tour was beyond expectations. The Grand Mosque visit was magical and our guide made it incredibly personal. Already booked for our next visit!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">PC</div>
+        <div>
+          <div class="author-name">Pierre Charpentier</div>
+          <div class="author-origin">Paris, France</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-content">
+    <div class="section-tag" style="text-align:left;">Start Your Journey</div>
+    <h2 class="cta-title serif">Ready to Experience<br>Dubai in <em>Style?</em></h2>
+    <p class="cta-sub">Contact us now to plan your perfect Dubai experience. Our team is available 24/7 to craft something truly unforgettable for you.</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/971585337317" class="btn-wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        WhatsApp Us
+      </a>
+      <a href="tel:+971585337317" class="btn-primary">Call Now</a>
+    </div>
+  </div>
+  <div class="cta-phone">
+    <div class="phone-card">
+      <div class="phone-badge">24/7 Available</div>
+      <div class="phone-label">Direct Line</div>
+      <div class="phone-number serif">+971 58 533 7317</div>
+      <div class="phone-sub">Speak directly with our concierge team</div>
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(201,168,76,0.1);">
+        <div style="font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.8rem;">Follow Us</div>
+        <div style="display:flex; gap:0.6rem;">
+          <span style="font-size:0.78rem; color:var(--gold);">@triptasticdubai</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name serif">Royal Triptastic</div>
+      <div class="footer-brand-sub">Tourism LLC · Dubai, UAE</div>
+      <p class="footer-desc">Dubai's premier luxury travel and chauffeur service. Exceptional service — always worth your money.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zm1.5-4.87h.01"/><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Twitter/X">
+          <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Airport Transfers</a></li>
+        <li><a href="#">Desert Safari</a></li>
+        <li><a href="#">Dubai City Tour</a></li>
+        <li><a href="#">Abu Dhabi Tour</a></li>
+        <li><a href="#">Luxury Car Hire</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Fleet</div>
+      <ul class="footer-links">
+        <li><a href="#">Mercedes S-Class</a></li>
+        <li><a href="#">Mercedes Maybach</a></li>
+        <li><a href="#">Mercedes V-Class</a></li>
+        <li><a href="#">BMW 7-Series</a></li>
+        <li><a href="#">Limousines</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Blog</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>Royal Triptastic Tourism LLC</span> · Dubai, UAE · All rights reserved</div>
+    <div class="footer-copy">Crafted with ❤ for luxury travel</div>
+  </div>
+</footer>
+
+<script>
+  /* NAV scroll effect */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* Floating particles */
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `left:${Math.random()*100}%;--dur:${7+Math.random()*8}s;--delay:${Math.random()*10}s;--drift:${(Math.random()-0.5)*80}px;opacity:0;`;
+    container.appendChild(p);
+  }
+
+  /* Intersection Observer for animations */
+  const observe = (selector, threshold = 0.15) => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold });
+    document.querySelectorAll(selector).forEach(el => observer.observe(el));
+  };
+
+  observe('.section-tag');
+  observe('.section-title');
+  observe('.section-line');
+  observe('.stat-item');
+  observe('.service-card');
+  observe('.tour-card');
+  observe('.fleet-stat');
+  observe('.car-card');
+  observe('.why-item');
+  observe('.testimonial-card');
+  observe('.cta-content');
+  observe('.cta-phone');
+
+  /* Counter animation */
+  const counters = document.querySelectorAll('.stat-number[data-target]');
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = target >= 100 ? '+' : target === 24 ? '/7' : '+';
+      let current = 0;
+      const duration = 1800;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current) + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 16);
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countObs.observe(c));
+
+  /* Fleet stat fade-in delays */
+  document.querySelectorAll('.fleet-stat').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+</script>
+</body>
+</html>
